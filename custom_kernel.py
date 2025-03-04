@@ -17,6 +17,7 @@ from botorch.acquisition.analytic import PosteriorMean
 # Set a random seed for reproducibility
 torch.manual_seed(420)
 np.random.seed(420)
+num_samples = 256 # 샘플 개수수
 
 class CustomKernelGP(SingleTaskGP):
     """
@@ -184,7 +185,7 @@ def run_batch_optimization(
     best_observed_values = [best_observed_value]
     
     # QMC sampler for acquisition function
-    qmc_sampler = SobolQMCNormalSampler(num_samples=256)
+    qmc_sampler = SobolQMCNormalSampler(sample_shape=torch.Size([num_samples]))
     
     for iteration in range(n_iterations):
         print(f"\nIteration {iteration+1}/{n_iterations}")
@@ -282,7 +283,7 @@ def compare_kernels(
         best_observed_values = [best_observed_value]
         
         # QMC sampler for acquisition function
-        qmc_sampler = SobolQMCNormalSampler(num_samples=256)
+        qmc_sampler = SobolQMCNormalSampler(sample_shape=torch.Size([num_samples]))
         
         for iteration in range(n_iterations):
             print(f"\nIteration {iteration+1}/{n_iterations}")
@@ -383,7 +384,7 @@ def run_knowledge_gradient_optimization(
             acq_name = "Posterior Mean (Pure Exploitation)"
         else:
             # Use qEI (exploration + exploitation) in earlier iterations
-            qmc_sampler = SobolQMCNormalSampler(num_samples=256)
+            qmc_sampler = SobolQMCNormalSampler(sample_shape=torch.Size([num_samples]))
             acq_func = qExpectedImprovement(
                 model=model, 
                 best_f=train_Y_std.max(),
