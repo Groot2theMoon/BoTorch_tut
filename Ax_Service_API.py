@@ -34,20 +34,14 @@ all the API calls that BoTorch expects in its various modules.
 *BoTorch allows implementing any custom model that follows the Model API.
 """
 
+# 1. 커스텀 GP 모델 정의 (기존 코드 유지)
 class SimpleCustomGP(ExactGP, GPyTorchModel):
-
-    _num_outputs = 1 # to inform GPYTorchModel API
-
-    def __init__(self, train_X, train_Y, train_Yvar: Optional[Tensor] = None):
-        # Note: This ignores train_Yvar and uses inferred noise instead
-        # squeeze output dim before passing train_Y to ExactGP
+    _num_outputs = 1
+    def __init__(self, train_X, train_Y):
         super().__init__(train_X, train_Y.squeeze(-1), GaussianLikelihood())
         self.mean_module = ConstantMean()
-        self.covar_module = ScaleKernel(
-            base_kernel=RBFKernel(ard_num_dims=train_X.shape[-1]),
-        )
-        self.to(train_X) # make sure we're on the right device/dtype
-
+        self.covar_module = ScaleKernel(RBFKernel(ard_num_dims=train_X.shape[-1]))
+        self.to(train_X)
     def forward(self, x):
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
@@ -89,7 +83,7 @@ ax_model = BoTorchModel(
 we use [TorchModelBridge] The Modular BoTorch interface creates the [BoTorchModel] and the [TorchModelBridge] in a single step, as follows. 
 """
 from ax.modelbridge.registry import Models
-model_bridge = Models.BOTORCH_MODULAR(
+"""model_bridge = Models.BOTORCH_MODULAR(
     experiment=experiment,
     data=data,
     surrogate=Surrogate(SimpleCustomGP),
@@ -97,7 +91,7 @@ model_bridge = Models.BOTORCH_MODULAR(
     # botorch_aqf_class=qLogNoisyExpectedImprovement,
 )
 # To generate a trial
-trial = model_bridge.gen(1)
+trial = model_bridge.gen(1)"""
 
 """
 In order to customize the way the condidates are created in the Service API, we need to construct 
@@ -109,16 +103,13 @@ from ax.modelbridge.registry import Models
 
 gs = GenerationStrategy(
     steps=[
-        #Quasi-random initialization step
         GenerationStep(
             model=Models.SOBOL,
-            num_trials=5, # How many trials should be produced from this generation step
+            num_trials=5,
         ),
-        # Bayesian optimization step using the custom acquisition function
         GenerationStep(
             model=Models.BOTORCH_MODULAR,
-            numtrials=-1, # No limitation on how many trials shoudl be produced from this step
-            # For 'BOTORCH_MODULAR', we pass in kwargs to specify what surrogate or acquisition function to use.
+            num_trials=-1,
             model_kwargs={
                 "surrogate": Surrogate(
                     botorch_model_class=SimpleCustomGP,
@@ -138,48 +129,28 @@ from ax.service.ax_client import AxClient
 from ax.service.utils.instantiation import ObjectiveProperties
 from botorch.test_functions import Branin
 
-# Initialize the client - AxClient offers a convenient API to control the experiment
+# 3. AxClient 초기화 및 실험 생성
 ax_client = AxClient(generation_strategy=gs)
-# Setup the experiment
 ax_client.create_experiment(
-    name="branin_test_experiment",
+    name="branin_test",
     parameters=[
-        {
-            "name": "x1",
-            "type": "range",
-            # it is crucial to use floats for the bounds, i.e., 0.0 rater than 0
-            # otherwise, the parameter would be inferred as an integer range
-            "bounds": [-5.0, 10.0],
-        },
-        {
-            "name": "x2",
-            "type": "range",
-            "bounds": [0.0, 15.0],
-        },
+        {"name": "x1", "type": "range", "bounds": [-5.0, 10.0]},
+        {"name": "x2", "type": "range", "bounds": [0.0, 15.0]},  # 오타 수정
     ],
-    objectives={
-        "branin": ObjectiveProperties(minimize=True),
-    },
+    objectives={"branin": ObjectiveProperties(minimize=True)},
 )
-#setup a function to evaluate the trials
+# 4. 평가 함수 정의
 branin = Branin()
-
 def evaluate(parameters):
-    x = torch.tensor([[parameters.get(f"x{i+1}") for i in range(2)]])
-    # the GaussianLikelihood used by our model infers an observation noise level,
-    # so we pass on sem value of NaNto indicate that observation noise is unknown
+    x = torch.tensor([[parameters["x1"], parameters["x2"]]])
     return {"branin": (branin(x).item(), float("nan"))}
 
-if SMOKE_TEST:
-    fast_smoke_test = fast_botorch_optimize_context_manager
-# set a seed for reproducible tutorial output
+# 5. 최적화 실행 (ModelBridge 직접 호출 대신 AxClient 사용)
 torch.manual_seed(0)
-
-with fast_smoke_test():
-    for i in range(NUM_EVALS):
+with nullcontext() if not SMOKE_TEST else fast_botorch_optimize_context_manager():
+    for _ in range(NUM_EVALS):
         parameters, trial_index = ax_client.get_next_trial()
-        # Local evaluation here can be replaced with deployment to exernal system.
-        ax_client.complete_trial(trial_index=trial_index, raw_data=evaluate(parameters))
+        ax_client.complete_trial(trial_index, evaluate(parameters))
 
 ax_client.get_trials_data_frame()
 
@@ -187,11 +158,43 @@ parameters, values = ax_client.get_best_parameters()
 print(f"Best parameters: {parameters}")
 print(f"Corresponding mean: {values[0]}, covariance: {values[1]}")
 
-from ax.utils.notebook.plotting import render
+try:
+    # 등고선 플롯
+    contour = ax_client.get_contour_plot()
+    contour.update_layout(height=600, width=800)
+    contour.show()
+    
+    # 3D 표면 플롯 (추가 시각화)
+    surface = ax_client.get_optimization_trace_surface_plot(
+        objective_name="branin",
+        parameter_name="x1",
+        metric_name="branin",
+    )
+    surface.update_layout(height=600, width=800)
+    surface.show()
+    
+except Exception as e:
+    print(f"시각화 생성 오류: {e}")
+"""
+import plotly.graph_objects as go
 
-render(ax_client.get_contour_plot())
+contour_plot = ax_client.get_contour_plot()
+
+fig = go.Figure(data=contour_plot)
+
+# Customize the layout if needed
+fig.update_layout(
+    title='Branin Function Optimization Contour Plot',
+    xaxis_title='x1',
+    yaxis_title='x2'
+)
+
+# Show the plot
+pio.show(fig)
+
+
 
 best_parameters, values = ax_client.get_best_parameters()
 best_parameters, values[0]
 
-render(ax_client.get_optimization_trace(objective_optimum=0.397887))
+render(ax_client.get_optimization_trace(objective_optimum=0.397887))"""
