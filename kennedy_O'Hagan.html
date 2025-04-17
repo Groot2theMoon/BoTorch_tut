@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Chapter-by-Chapter Explanation of the Paper</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h3 id="chapter-by-chapter-explanation-of-the-paper">Chapter-by-Chapter Explanation of the Paper</h3>
+<p><strong>Title</strong>: <em>Predicting the Output from a Complex Computer Code When Fast Approximations Are Available</em><br>
+<strong>Authors</strong>: M. C. Kennedy &amp; A. O’Hagan</p>
+<hr>
+<h4 id="1-introduction--background"><strong>1. Introduction &amp; Background</strong></h4>
+<p><strong>Key Problem</strong>: Complex computer codes (e.g., oil reservoir simulators) are computationally expensive. Running high-fidelity models for uncertainty analysis or optimization is often infeasible.<br>
+<strong>Solution</strong>: Combine sparse runs of the expensive &quot;high-level&quot; code with abundant runs of cheaper &quot;low-level&quot; approximations (e.g., coarser grid simulations) using Bayesian methods.<br>
+<strong>Core Idea</strong>: Model the relationship between code levels via Gaussian processes (GPs) to predict outputs efficiently.</p>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Gaussian Processes (GPs)</strong>: A flexible non-parametric Bayesian framework for modeling functions. Start with <a href="https://gaussianprocess.org/gpml/">Gaussian Processes for Machine Learning (Rasmussen &amp; Williams, 2006)</a>.</li>
+<li><strong>Computer Experiments</strong>: Overview of design and analysis in <a href="https://doi.org/10.1214/ss/1177012413">Sacks et al. (1989)</a>.</li>
+</ul>
+<hr>
+<h4 id="2-bayesian-analysis-of-multi-level-codes"><strong>2. Bayesian Analysis of Multi-Level Codes</strong></h4>
+<p><strong>Model Structure</strong>:</p>
+<ul>
+<li><strong>Autoregressive Model</strong>: For code levels ( z_1, z_2, \dots, z_s ), assume:<br>
+[
+z_t(x) = \rho_{t-1} z_{t-1}(x) + \delta_t(x)
+]<br>
+where ( \rho_{t-1} ) scales the lower-level output, and ( \delta_t(x) ) is a GP representing the residual (unexplained) behavior.</li>
+<li><strong>Covariance Functions</strong>: Exponential kernel ( c_t(x, x') = \sigma_t^2 \exp(-b_t |x - x'|^2) ), encoding smoothness and correlation decay.</li>
+<li><strong>Nested Designs</strong>: ( D_t \subseteq D_{t-1} ) ensures computational tractability by restricting dependencies to immediate lower levels.</li>
+</ul>
+<p><strong>Hyperparameter Estimation</strong>:</p>
+<ul>
+<li><strong>Likelihood Maximization</strong>: Parameters (( \rho, \sigma^2, b )) are estimated by maximizing the likelihood of observed data, assuming non-informative priors.</li>
+<li><strong>Posterior Inference</strong>: After estimating hyperparameters, the posterior mean (Eq. 4) and covariance (Eq. 7) of the top-level code ( z_s(x) ) are derived using GP conditioning.</li>
+</ul>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Bayesian Linear Regression</strong>: Basics in <a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/">Bishop’s <em>Pattern Recognition and Machine Learning</em></a>.</li>
+<li><strong>Kriging (Gaussian Process Regression)</strong>: Tutorials on <a href="https://www.ressources-actuarielles.net/EXT/ISFA/1226.nsf/0/F84F7AC9B8E12B3FC125759B004F78AF/$FILE/Kriging.pdf">Kriging Interpolation</a>.</li>
+</ul>
+<hr>
+<h4 id="3-uncertainty-analysis"><strong>3. Uncertainty Analysis</strong></h4>
+<p><strong>Goal</strong>: Propagate uncertainty in inputs ( X \sim G ) to outputs ( z_s(X) ).<br>
+<strong>Method</strong>:</p>
+<ul>
+<li><strong>Bayesian Quadrature</strong>: Compute integrals over the GP posterior (e.g., ( K = \int z_s(x) dG(x) )) analytically or via approximations.</li>
+<li><strong>Efficiency</strong>: Avoids costly Monte Carlo sampling by leveraging the GP’s closed-form properties.</li>
+</ul>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Monte Carlo vs. Bayesian Quadrature</strong>: Compare in <a href="https://doi.org/10.1016/0378-3758(91)90002-V">O’Hagan (1991)</a>.</li>
+<li><strong>Uncertainty Propagation</strong>: Basics in <a href="https://www.cambridge.org/core/books/uncertainty-quantification/66508C4D3C0CAAE837C5B1B11C0E2558">Smith (2013)</a>.</li>
+</ul>
+<hr>
+<h4 id="4-case-study-oil-reservoir-simulator"><strong>4. Case Study: Oil Reservoir Simulator</strong></h4>
+<p><strong>Setup</strong>:</p>
+<ul>
+<li><strong>Codes</strong>: Two finite-element simulators—fast (coarse grid) and slow (fine grid).</li>
+<li><strong>Design</strong>: 45 fast-code runs and 7 slow-code runs selected via space-filling design.<br>
+<strong>Results</strong>:</li>
+<li><strong>RMSE Comparison</strong>:
+<ul>
+<li>Fast code alone: RMSE = 266.5</li>
+<li>Autoregressive model (( \hat{\rho}_1 z_1 + \hat{\delta}_2 )): RMSE = 29.9</li>
+<li>Slow-code interpolation (7 runs): RMSE = 51.3<br>
+<strong>Key Insight</strong>: Combining codes reduces prediction error significantly, even with sparse slow-code data.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Latin Hypercube Sampling</strong>: Design method explained in <a href="https://doi.org/10.1080/00401706.1979.10489755">McKay et al. (1979)</a>.</li>
+<li><strong>Finite Element Methods</strong>: Basics in <a href="https://www.cengage.com/c/3d-finite-element-method-logan/9781305637335/">Logan (2017)</a>.</li>
+</ul>
+<hr>
+<h4 id="5-alternative-model-cumulative-roughness"><strong>5. Alternative Model: Cumulative Roughness</strong></h4>
+<p><strong>Concept</strong>: Code complexity increases with a roughness parameter ( t ). The covariance function accumulates roughness:<br>
+[
+\text{cov}(z(x, t), z(x', t')) = \frac{\sigma_d^2}{k \delta} \left(1 - \exp(-k \delta \min(t, t'))\right)
+]<br>
+<strong>Advantage</strong>: Better handles codes that become &quot;rougher&quot; (less smooth) with higher complexity.<br>
+<strong>Example</strong>: Simulated 3-level code shows lower RMSE (1.19) compared to autoregressive (1.44) or slow-code-only (1.54) models.</p>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Non-Stationary GPs</strong>: Advanced topic in <a href="https://arxiv.org/abs/1610.08733">Heinonen et al. (2016)</a>.</li>
+</ul>
+<hr>
+<h4 id="6-discussion--extensions"><strong>6. Discussion &amp; Extensions</strong></h4>
+<p><strong>Key Takeaways</strong>:</p>
+<ul>
+<li><strong>Efficiency</strong>: Combining multi-level codes reduces computational cost while maintaining accuracy.</li>
+<li><strong>Flexibility</strong>: Choice of model (autoregressive vs. roughness) depends on prior beliefs about code behavior.<br>
+<strong>Future Work</strong>:</li>
+<li><strong>MCMC for Hyperparameters</strong>: Full Bayesian inference instead of point estimates.</li>
+<li><strong>Design Strategies</strong>: Exploring non-nested designs ( D_t \not\subseteq D_{t-1} ).</li>
+</ul>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Markov Chain Monte Carlo (MCMC)</strong>: Introduction in <a href="http://www.stat.columbia.edu/~gelman/book/">Gelman et al. (2013)</a>.</li>
+<li><strong>Design of Experiments</strong>: Advanced methods in <a href="https://www.taylorfrancis.com/books/mono/10.1201/9781410603525/design-analysis-computer-experiments-thomas-santner-brian-williams-william-notz">Santner et al. (2018)</a>.</li>
+</ul>
+<hr>
+<h4 id="appendix-uncertainty-analysis-details"><strong>Appendix: Uncertainty Analysis Details</strong></h4>
+<p><strong>Derivations</strong>: Closed-form expressions for ( E(K) ), ( \text{var}(K) ), and integrals over Gaussian processes.<br>
+<strong>Key Formula</strong>:<br>
+[
+\hat{K} = \int m'(x) dG(x) = h \hat{\beta} + T V^{-1} (z - H \hat{\beta})
+]<br>
+where ( T ) and ( h ) are integrals of the GP mean and covariance.</p>
+<p><strong>Supplementary Material</strong>:</p>
+<ul>
+<li><strong>Gaussian Integrals</strong>: Techniques in <a href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">Petersen &amp; Pedersen (2012)</a>.</li>
+</ul>
+<hr>
+<h3 id="study-recommendations"><strong>Study Recommendations</strong></h3>
+<ol>
+<li><strong>Prerequisite Knowledge</strong>:
+<ul>
+<li>Bayesian statistics (priors, posteriors, hyperparameters).</li>
+<li>Gaussian processes and covariance functions.</li>
+<li>Basic optimization (maximum likelihood estimation).</li>
+</ul>
+</li>
+<li><strong>Hands-On Practice</strong>:
+<ul>
+<li>Implement a simple autoregressive GP model using Python libraries like <a href="https://sheffieldml.github.io/GPy/">GPy</a>.</li>
+<li>Experiment with multi-fidelity datasets (e.g., <a href="https://www.sfu.ca/~ssurjano/borehole.html">NASA’s borehole function</a>).</li>
+</ul>
+</li>
+<li><strong>Further Reading</strong>:
+<ul>
+<li><a href="https://doi.org/10.1093/biomet/87.1.1">Kennedy &amp; O’Hagan (2000)</a> (this paper).</li>
+<li><a href="https://arxiv.org/abs/2012.15573">Multi-Fidelity Surrogate Models</a> (review article).</li>
+</ul>
+</li>
+</ol>
+<p>Let me know if you need clarification on specific equations or concepts!</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
