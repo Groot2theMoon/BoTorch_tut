@@ -1,4 +1,5 @@
 import os
+import botorch.exceptions.errors
 import gpytorch.constraints
 import torch
 
@@ -170,18 +171,27 @@ def optimize_mfkg_and_get_observation(mfkg_acqf):
     return new_x, new_obj, cost
 
 # --- BO 실행 ---
+"""budget exhaustion : max_total_cost 를 설정하고, cumulative_cost 가 이를 초과하면 루프 종료료"""
 # 초기 데이터 생성
 train_x, train_obj = generate_initial_data(n=16)
 
 cumulative_cost = 0.0 # 누적 비용 초기화
-N_ITER = 8 if not SMOKE_TEST else 2 # 반복 횟수
+max_total_cost = 250.0 # 허용 총 비용용
+iteration_count = 0
 
-# 지정된 횟수만큼 BO 반복 실행
-for i in range(N_ITER):
-    print(f"Iteration {i+1}/{N_ITER}")
+while cumulative_cost < max_total_cost:
+    iteration_count += 1
+    print(f"Iteration {iteration_count} (Current cost: {cumulative_cost: .3f} / Budget: {max_total_cost: .3f})")
+
     # 현재까지의 데이터로 모델 초기화 및 피팅
     mll, model = initialize_model(train_x, train_obj)
-    fit_gpytorch_mll(mll) # MLL을 최대화하여 모델 하이퍼파라미터 학습
+    try: # 피팅 실패 시 예외 처리
+        fit_gpytorch_mll(mll) # MLL을 최대화하여 모델 하이퍼파라미터 학습
+    except botorch.exceptions.errors.ModelFittingError as e:
+        print(f"Model fitting failed: {e}. Skipping iteration.")
+        cumulative_cost += 5.0 # 실패 시 cost 페널티
+        continue
+
     # 현재 모델로 MFKG 획득 함수 생성
     mfkg_acqf = get_mfkg(model)
     # MFKG 획득 함수를 최적화하여 새로운 후보점, 관측값 및 비용 얻기
@@ -192,6 +202,10 @@ for i in range(N_ITER):
     # 누적 비용 업데이트
     cumulative_cost += cost.item() #스칼라 값 추출
     print(f"Cumulative cost: {cumulative_cost:.3f}\n")
+
+    if cumulative_cost >= max_total_cost: # 예산 초과 메세지
+        print(f"Stopping loop: Budget {max_total_cost: .3f} exceeded.")
+        break
 
 # --- 최종 추천 (Final Recommendation) ---
 mll, final_model = initialize_model(train_x, train_obj)
@@ -229,12 +243,12 @@ def get_recommendation(model):
     # 결과 표시를 위해 x 값을 실제 스케일로 변환
     final_rec_x_unscaled = problem_true.unnormalize(final_rec)[0].item()
 
-    print(f"recommended point:\n{final_rec}\n")
-    print(f"x (unscaled): {final_rec_x_unscaled:.4f}\n")
-    print(f"objective value:{objective_value.item():.4f}")
+    print(f"추천된 지점(recommended point):\n{final_rec}\n")
+    print(f"추천된 설계 변수 x (unscaled): {final_rec_x_unscaled:.4f}\n")
+    print(f"해당 지점에서의 실제 목표 함수 값(objective value):\n{objective_value.item():.4f}")
     return final_rec
 
 # MFKG를 사용하여 학습된 최종 모델로 추천 지점 얻기
 print("--- MFKG Final Recommendation ---")
 final_rec_mfkg = get_recommendation(final_model)
-print(f"\ntotal cost: {cumulative_cost:.3f}\n")
+print(f"\nMFKG 총 비용(total cost): {cumulative_cost:.3f}\n")
