@@ -5,7 +5,7 @@ import torch
 from custom_discf_function import CustomMultiFidelityFunction # 사용자의 커스텀 함수
 
 import botorch
-botorch.settings.debug(True) # BoTorch 디버그 모드 활성화
+#botorch.settings.debug(True) # BoTorch 디버그 모드 활성화
 
 tkwargs = {
     "dtype": torch.double,
@@ -216,3 +216,4 @@ def get_recommendation(model_to_recommend):
 print("--- MFKG Final Recommendation ---")
 final_rec_mfkg = get_recommendation(final_model)
 print(f"\nTotal cost: {cumulative_cost:.3f}\n")
+print(f"Using device: {tkwargs['device']}")

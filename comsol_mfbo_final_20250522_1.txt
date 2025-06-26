@@ -1,0 +1,353 @@
+PS C:\Users\user\Desktop\이승원 연참> & C:/Users/user/.conda/envs/Lee_Seungwon/python.exe "c:/Users/user/Desktop/이승원 연참/comsol_mfbo_final.py"
+Starting COMSOL server (port: 2036)...
+COMSOL server process started (PID: 55320). Waiting for startup...
+COMSOL server wait complete.
+Starting MATLAB engine...
+Setting MATLAB_JAVA to: C:\Program Files\COMSOL\COMSOL63\Multiphysics\java\win64\jre
+MATLAB engine started.
+MATLAB using Java version: Java 11.0.24+8 with Eclipse Adoptium OpenJDK 64-Bit Server VM mixed mode
+MATLAB path added: C:\Users\user\Desktop\이승원 연참
+Connecting MATLAB to COMSOL server (port: 2036)...
+MATLAB connected to COMSOL server.
+--- Initial Data Generation ---
+Generating 5 initial data points...
+  Evaluating run4: α=3.609, th/W=0.00499, fid=0.0...
+    Result: 3.359e+01. Time: 379.37s
+  Evaluating run4: α=1.223, th/W=0.00857, fid=0.0...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:       
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Failed. Time: 540.31s
+  Evaluating run4: α=3.971, th/W=0.00794, fid=1.0...
+    Result: 3.137e-04. Time: 1057.90s
+  Evaluating run4: α=4.743, th/W=0.00706, fid=1.0...
+    Result: 3.385e-04. Time: 1212.45s
+  Evaluating run4: α=4.339, th/W=0.00712, fid=1.0...
+    Result: 2.948e-04. Time: 1052.36s
+Avg LF time: 459.84s, Avg HF time: 1107.57s
+Initial cumulative cost: 4242.40s
+
+--- MFBO Loop (8 iterations) ---
+
+--- Iteration 1/8 ---
+  Cost: 4242.40s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested candidates (acqf val: 2.039e+07):
+tensor([[0.0370, 0.6886, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.148, th/W=0.00720, fid=0.0...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:       
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Failed. Time: 355.42s
+  Iteration cost: 355.42s
+  Iteration 1 complete.
+
+--- Iteration 2/8 ---
+  Cost: 4597.82s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+  Suggested candidates (acqf val: 1.972e+07):
+tensor([[0.1632, 0.7240, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.653, th/W=0.00752, fid=0.0...
+    Result: 8.202e+01. Time: 133.88s
+  Iteration cost: 133.88s
+  Iteration 2 complete.
+
+--- Iteration 3/8 ---
+  Cost: 4731.70s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+  Suggested candidates (acqf val: 1.510e+07):
+tensor([[0.0348, 0.8890, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.139, th/W=0.00900, fid=0.0...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:       
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Failed. Time: 460.27s
+  Iteration cost: 460.27s
+  Iteration 3 complete.
+
+--- Iteration 4/8 ---
+  Cost: 5191.97s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested candidates (acqf val: 1.935e+07):
+tensor([[0.8862, 0.3032, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.545, th/W=0.00373, fid=0.0...
+    Result: 2.258e+01. Time: 323.80s
+  Iteration cost: 323.80s
+  Iteration 4 complete.
+
+--- Iteration 5/8 ---
+  Cost: 5515.77s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested candidates (acqf val: 1.994e+07):
+tensor([[0.0000, 0.7150, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.000, th/W=0.00744, fid=0.0...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:       
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Failed. Time: 435.68s
+  Iteration cost: 435.68s
+  Iteration 5 complete.
+
+--- Iteration 6/8 ---
+  Cost: 5951.45s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+  Suggested candidates (acqf val: 1.210e+07):
+tensor([[0.6809, 0.1881, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.724, th/W=0.00269, fid=0.0...
+    Result: 1.031e+01. Time: 207.36s
+  Iteration cost: 207.36s
+  Iteration 6 complete.
+
+--- Iteration 7/8 ---
+  Cost: 6158.81s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested candidates (acqf val: 1.363e+07):
+tensor([[0.8046, 0.3973, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.219, th/W=0.00458, fid=0.0...
+    Result: 3.265e+01. Time: 364.74s
+  Iteration cost: 364.74s
+  Iteration 7 complete.
+
+--- Iteration 8/8 ---
+  Cost: 6523.56s. Best HF (negated): -2.948e-04
+  Fitting GP model...
+  Optimizing MFKG & observing...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested candidates (acqf val: 1.691e+07):
+tensor([[0.9203, 0.2399, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.681, th/W=0.00316, fid=0.0...
+    Result: 1.643e+01. Time: 295.79s
+  Iteration cost: 295.79s
+  Iteration 8 complete.
+
+--- Final Recommendation ---
+  Recommended unnormalized design: α=1.1029, th/W=0.008062
+  Evaluating at High Fidelity...
+  Evaluating run4: α=1.103, th/W=0.00806, fid=1.0...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:       
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.GeneratedMethodAccessor145.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 223
+    Failed. Time: 451.24s
+  Objective at recommended point: 1.0000e+10 (eval time: 451.24s)
+
+Total cumulative cost: 6819.34s
+Disconnecting MATLAB from COMSOL server...
+시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+Error disconnecting MATLAB: 시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+MATLAB engine quit.
+Stopping COMSOL server (PID: 55320)...
+Error stopping COMSOL server: Command '['C:\\Program Files\\COMSOL\\COMSOL63\\Multiphysics\\bin\\win64\\comsol.exe', 'mphserver', '-port2036']' timed out after 10 seconds
+COMSOL server process stopped.
+Cleanup complete.
+
+MFBO with COMSOL via MATLAB finished.

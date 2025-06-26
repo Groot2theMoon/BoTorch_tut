@@ -1,0 +1,774 @@
+PS C:\Users\user\Desktop\이승원 연참> & C:/Users/user/.conda/envs/Lee_Seungwon/python.exe "c:/Users/user/Desktop/이승원 연참/comsol_mfbo_final.py"
+Initializing COMSOL problem for BoTorch...
+Starting COMSOL server (port: 2036)...
+COMSOL server process started (PID: 29576). Waiting for startup (40s)...
+COMSOL server wait complete.
+Starting MATLAB engine...
+  MATLAB_JAVA set to: C:\Program Files\COMSOL\COMSOL63\Multiphysics\java\win64\jre
+  MATLAB engine started. Java version: Java 11.0.24+8 with Eclipse Adoptium OpenJDK 64-Bit Server VM mixed mode
+  MATLAB path added: C:\Users\user\Desktop\이승원 연참
+  Connecting MATLAB to COMSOL server (port: 2036)...
+  MATLAB connected to COMSOL server.
+
+--- Generating 5 Initial Data Points ---
+  Evaluating run4: α=4.4745, th/W=0.006451, fid=0.0, strain=15.0%...
+    Evaluation Result: 6.5481e+01. Time: 341.74s
+  Evaluating run4: α=4.9919, th/W=0.007311, fid=0.0, strain=15.0%...
+    Evaluation Result: 8.5479e+01. Time: 504.35s
+  Evaluating run4: α=1.6197, th/W=0.009773, fid=1.0, strain=15.0%...
+    Evaluation Result: 1.5812e-04. Time: 320.84s
+  Evaluating run4: α=2.7190, th/W=0.005116, fid=1.0, strain=15.0%...
+    Evaluation Result: 1.9226e-03. Time: 335.32s
+  Evaluating run4: α=3.1234, th/W=0.009389, fid=1.0, strain=15.0%...
+    Evaluation Result: 2.7077e-04. Time: 631.42s
+  Avg LF execution time: 423.05s, Avg HF execution time: 429.20s
+  Initial cumulative cost: 2133.68s
+
+--- Starting MFBO Loop (8 iterations) ---
+
+--- Iteration 1/8 ---
+  Cumulative cost: 2133.68s. Best HF obj (negated): -1.5812e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.619e-02):
+tensor([[0.2164, 0.6262, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.8655, th/W=0.006636, fid=0.0, strain=15.0%...
+    Evaluation Result: 3.0365e+01. Time: 107.97s
+  Cost for this iteration: 107.97s
+  Iteration 1 finished in 118.25s.
+
+--- Iteration 2/8 ---
+  Cumulative cost: 2241.65s. Best HF obj (negated): -1.5812e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.270e-02):
+tensor([[0.5743, 0.7166, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.2971, th/W=0.007449, fid=1.0, strain=15.0%...
+    Evaluation Result: 3.3542e-04. Time: 548.73s
+  Cost for this iteration: 548.73s
+  Iteration 2 finished in 557.46s.
+
+--- Iteration 3/8 ---
+  Cumulative cost: 2790.38s. Best HF obj (negated): -1.5812e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.993e-02):
+tensor([[0.0060, 0.2681, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.0238, th/W=0.003413, fid=1.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 223
+    Evaluation Failed. Time: 252.86s
+  Cost for this iteration: 252.86s
+  Iteration 3 finished in 262.31s.
+
+--- Iteration 4/8 ---
+  Cumulative cost: 3043.24s. Best HF obj (negated): 1.0000e+10
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: -8.631e+10):
+tensor([[1.0000, 0.0061, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=5.0000, th/W=0.001055, fid=1.0, strain=15.0%...
+    Evaluation Result: 7.7630e-02. Time: 598.03s
+  Cost for this iteration: 598.03s
+  Iteration 4 finished in 605.30s.
+
+--- Iteration 5/8 ---
+  Cumulative cost: 3641.27s. Best HF obj (negated): 1.0000e+10
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 4.260e+05):
+tensor([[0.3107, 0.2750, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=2.2428, th/W=0.003475, fid=1.0, strain=15.0%...
+    Evaluation Result: 3.9491e-03. Time: 227.92s
+  Cost for this iteration: 227.92s
+  Iteration 5 finished in 236.13s.
+
+--- Iteration 6/8 ---
+  Cumulative cost: 3869.19s. Best HF obj (negated): 1.0000e+10
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: -1.280e+11):
+tensor([[0.6554, 0.0143, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.6215, th/W=0.001129, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.7595e+00. Time: 80.84s
+  Cost for this iteration: 80.84s
+  Iteration 6 finished in 87.80s.
+
+--- Iteration 7/8 ---
+  Cumulative cost: 3950.03s. Best HF obj (negated): 1.0000e+10
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: -9.199e+10):
+tensor([[0.8594, 1.0000, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.4377, th/W=0.010000, fid=1.0, strain=15.0%...
+    Evaluation Result: 2.2030e-04. Time: 1057.88s
+  Cost for this iteration: 1057.88s
+  Iteration 7 finished in 1063.94s.
+
+--- Iteration 8/8 ---
+  Cumulative cost: 5007.90s. Best HF obj (negated): 1.0000e+10
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: -1.264e+11):
+tensor([[0.1964, 0.3620, 1.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.7855, th/W=0.004258, fid=1.0, strain=15.0%...
+    Evaluation Result: 1.7683e-03. Time: 194.30s
+  Cost for this iteration: 194.30s
+  Iteration 8 finished in 200.91s.
+
+--- Final Recommendation ---
+  Refitting GP model with all accumulated data for final recommendation...
+  Final recommendation model successfully refitted.
+
+  Recommended unnormalized design parameters (from model):
+    alpha (L/W): 1.0000
+    th/W ratio: 0.002979
+
+  Evaluating recommended point at High Fidelity...
+  Evaluating run4: α=1.0000, th/W=0.002979, fid=1.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.GeneratedMethodAccessor149.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 223
+    Evaluation Failed. Time: 234.90s
+  Objective (actual value) at recommended point: -1.0000e+10 (eval time: 234.90s)
+An error occurred in the main MFBO execution: index 2 is out of bounds for dimension 0 with size 1
+Traceback (most recent call last):
+  File "c:\Users\user\Desktop\이승원 연참\comsol_mfbo_final.py", line 462, in <module>
+    rec_fid_bo = recommended_x_full_norm[FIDELITY_INDEX].item()
+                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+IndexError: index 2 is out of bounds for dimension 0 with size 1
+Disconnecting MATLAB from COMSOL server...
+시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+  Error disconnecting MATLAB from COMSOL: 시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+Quitting MATLAB engine...
+MATLAB engine quit.
+Stopping COMSOL server (PID: 29576)...
+Stopping COMSOL server (PID: 29576)...
+Stopping COMSOL server (PID: 29576)...
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+Stopping COMSOL server (PID: 29576)...
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+
+MFBO with COMSOL via MATLAB finished.
+PS C:\Users\user\Desktop\이승원 연참>
+
+
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+
+MFBO with COMSOL via MATLAB finished.
+PS C:\Users\user\Desktop\이승원 연참>
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+Stopping COMSOL server (PID: 29576)...
+Stopping COMSOL server (PID: 29576)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+
+MFBO with COMSOL via MATLAB finished.
+PS C:\Users\user\Desktop\이승원 연참> & C:/Users/user/.conda/envs/Lee_Seungwon/python.exe "c:/Users/user/Desktop/이승원 연참/comsol_mfbo_final.py"
+Initializing COMSOL problem for BoTorch...
+Starting COMSOL server (port: 2036)...
+COMSOL server process started (PID: 20832). Waiting for startup (40s)...
+COMSOL server wait complete.
+Starting MATLAB engine...
+  MATLAB_JAVA set to: C:\Program Files\COMSOL\COMSOL63\Multiphysics\java\win64\jre
+  MATLAB engine started. Java version: Java 11.0.24+8 with Eclipse Adoptium OpenJDK 64-Bit Server VM mixed mode
+  MATLAB path added: C:\Users\user\Desktop\이승원 연참
+  Connecting MATLAB to COMSOL server (port: 2036)...
+  MATLAB connected to COMSOL server.
+
+--- Generating 5 Initial Data Points ---
+  Evaluating run4: α=2.9159, th/W=0.005396, fid=0.0, strain=15.0%...
+    Evaluation Result: 2.6616e+01. Time: 158.72s
+  Evaluating run4: α=3.8686, th/W=0.005222, fid=0.0, strain=15.0%...
+    Evaluation Result: 3.9681e+01. Time: 309.73s
+  Evaluating run4: α=4.2229, th/W=0.009234, fid=1.0, strain=15.0%...
+    Evaluation Result: 2.3687e-04. Time: 928.41s
+  Evaluating run4: α=2.2202, th/W=0.009251, fid=1.0, strain=15.0%...
+    Evaluation Result: 9.2267e-04. Time: 333.38s
+  Evaluating run4: α=4.4896, th/W=0.002455, fid=1.0, strain=15.0%...
+    Evaluation Result: 3.4822e-03. Time: 577.64s
+  Avg LF execution time: 234.23s, Avg HF execution time: 613.14s
+  Initial cumulative cost: 2307.89s
+
+--- Starting MFBO Loop (8 iterations) ---
+
+--- Iteration 1/8 ---
+  Cumulative cost: 2307.89s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 8.699e-03):
+tensor([[0.1210, 0.0379, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.9235, th/W=0.001341, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.1842e+00. Time: 41.57s
+  Cost for this iteration: 41.57s
+  Iteration 1 finished in 46.89s.
+
+--- Iteration 2/8 ---
+  Cumulative cost: 2349.47s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 6.061e-02):
+tensor([[0.3286, 0.0050, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=2.6500, th/W=0.001045, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.1566e+00. Time: 53.32s
+  Cost for this iteration: 53.32s
+  Iteration 2 finished in 65.40s.
+
+--- Iteration 3/8 ---
+  Cumulative cost: 2402.79s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 4.381e-02):
+tensor([[0.0013, 0.9998, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.5046, th/W=0.009998, fid=0.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Evaluation Failed. Time: 353.11s
+  Cost for this iteration: 353.11s
+  Iteration 3 finished in 360.28s.
+
+--- Iteration 4/8 ---
+  Cumulative cost: 2755.90s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 2.173e+07):
+tensor([[0.1376, 0.9663, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.9817, th/W=0.009697, fid=0.0, strain=15.0%...
+    Evaluation Result: 5.2596e+01. Time: 179.13s
+  Cost for this iteration: 179.13s
+  Iteration 4 finished in 184.36s.
+
+--- Iteration 5/8 ---
+  Cumulative cost: 2935.02s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 3.985e+07):
+tensor([[0.7694, 0.0916, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.1928, th/W=0.001824, fid=0.0, strain=15.0%...
+    Evaluation Result: 5.2514e+00. Time: 115.38s
+  Cost for this iteration: 115.38s
+  Iteration 5 finished in 122.21s.
+
+--- Iteration 6/8 ---
+  Cumulative cost: 3050.41s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 3.813e+07):
+tensor([[0.6827, 0.5679, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.8894, th/W=0.006111, fid=0.0, strain=15.0%...
+    Evaluation Result: 5.4173e+01. Time: 320.20s
+  Cost for this iteration: 320.20s
+  Iteration 6 finished in 327.00s.
+
+--- Iteration 7/8 ---
+  Cumulative cost: 3370.61s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 4.042e+07):
+tensor([[0.9980, 1.0000, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=4.9929, th/W=0.010000, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.5250e+02. Time: 753.35s
+  Cost for this iteration: 753.35s
+  Iteration 7 finished in 760.53s.
+
+--- Iteration 8/8 ---
+  Cumulative cost: 4123.96s. Best HF obj (negated): -2.3687e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 4.014e+07):
+tensor([[0.0011, 0.7709, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.5039, th/W=0.007938, fid=0.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 185
+    Evaluation Failed. Time: 316.49s
+  Cost for this iteration: 316.49s
+  Iteration 8 finished in 327.82s.
+
+--- Final Recommendation ---
+  Refitting GP model with all accumulated data for final recommendation...
+  Final recommendation model successfully refitted.
+
+  Recommended unnormalized design parameters (from model):
+    alpha (L/W): 1.5000
+    th/W ratio: 0.008862
+
+  Evaluating recommended point at High Fidelity...
+  Evaluating run4: α=1.5000, th/W=0.008862, fid=1.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.GeneratedMethodAccessor144.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 223
+    Evaluation Failed. Time: 343.74s
+  Objective (actual value) at recommended point: -1.0000e+10 (eval time: 343.74s)
+An error occurred in the main MFBO execution: index 2 is out of bounds for dimension 0 with size 1
+Traceback (most recent call last):
+  File "c:\Users\user\Desktop\이승원 연참\comsol_mfbo_final.py", line 462, in <module>
+    rec_fid_bo = recommended_x_full_norm[FIDELITY_INDEX].item()
+                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+IndexError: index 2 is out of bounds for dimension 0 with size 1
+Disconnecting MATLAB from COMSOL server...
+시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+  Error disconnecting MATLAB from COMSOL: 시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+
+Quitting MATLAB engine...
+
+
+
+Quitting MATLAB engine...
+
+
+Quitting MATLAB engine...
+
+
+
+Quitting MATLAB engine...
+MATLAB engine quit.
+Stopping COMSOL server (PID: 20832)...
+
+Quitting MATLAB engine...
+MATLAB engine quit.
+
+
+Quitting MATLAB engine...
+
+
+Quitting MATLAB engine...
+
+Quitting MATLAB engine...
+Quitting MATLAB engine...
+MATLAB engine quit.
+MATLAB engine quit.
+Stopping COMSOL server (PID: 20832)...
+  COMSOL server stop timed out. Killing process...
+Stopping COMSOL server (PID: 20832)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+
+Cleanup complete.
+
+
+MFBO with COMSOL via MATLAB finished.
+PS C:\Users\user\Desktop\이승원 연참> & C:/Users/user/.conda/envs/Lee_Seungwon/python.exe "c:/Users/user/Desktop/이승원 연참/comsol_mfbo_final.py"
+Initializing COMSOL problem for BoTorch...
+Starting COMSOL server (port: 2036)...
+COMSOL server process started (PID: 41188). Waiting for startup (40s)...
+COMSOL server wait complete.
+Starting MATLAB engine...
+  MATLAB_JAVA set to: C:\Program Files\COMSOL\COMSOL63\Multiphysics\java\win64\jre
+  MATLAB engine started. Java version: Java 11.0.24+8 with Eclipse Adoptium OpenJDK 64-Bit Server VM mixed mode
+  MATLAB path added: C:\Users\user\Desktop\이승원 연참
+  Connecting MATLAB to COMSOL server (port: 2036)...
+  MATLAB connected to COMSOL server.
+
+--- Generating 5 Initial Data Points ---
+  Evaluating run4: α=2.6145, th/W=0.005308, fid=0.0, strain=15.0%...
+    Evaluation Result: 2.0165e+01. Time: 146.33s
+  Evaluating run4: α=4.8917, th/W=0.008772, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.1975e+02. Time: 531.13s
+  Evaluating run4: α=1.8591, th/W=0.009735, fid=1.0, strain=15.0%...
+    Evaluation Result: 1.9987e-04. Time: 282.01s
+  Evaluating run4: α=2.9538, th/W=0.005960, fid=1.0, strain=15.0%...
+    Evaluation Result: 5.2072e-04. Time: 371.45s
+  Evaluating run4: α=4.6205, th/W=0.008212, fid=1.0, strain=15.0%...
+    Evaluation Result: 2.4991e-04. Time: 933.46s
+  Avg LF execution time: 338.73s, Avg HF execution time: 528.97s
+  Initial cumulative cost: 2264.38s
+
+--- Starting MFBO Loop (8 iterations) ---
+
+--- Iteration 1/8 ---
+  Cumulative cost: 2264.38s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed on the second try, after generating a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.585e-01):
+tensor([[0.1977, 0.5932, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=2.3926, th/W=0.006339, fid=0.0, strain=15.0%...
+    Evaluation Result: 2.4186e+01. Time: 126.19s
+  Cost for this iteration: 126.19s
+  Iteration 1 finished in 137.02s.
+
+--- Iteration 2/8 ---
+  Cumulative cost: 2390.57s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.116e-01):
+tensor([[0.0000, 0.9314, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.7500, th/W=0.009383, fid=0.0, strain=15.0%...
+    Evaluation Result: 7.7095e+01. Time: 125.49s
+  Cost for this iteration: 125.49s
+  Iteration 2 finished in 136.82s.
+
+--- Iteration 3/8 ---
+  Cumulative cost: 2516.06s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.919e-01):
+tensor([[0.1564, 0.2492, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=2.2583, th/W=0.003243, fid=0.0, strain=15.0%...
+    Evaluation Result: 6.0578e+00. Time: 65.91s
+  Cost for this iteration: 65.91s
+  Iteration 3 finished in 77.50s.
+
+--- Iteration 4/8 ---
+  Cumulative cost: 2581.97s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.862e-01):
+tensor([[0.0191, 0.0266, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=1.8121, th/W=0.001240, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.2694e+00. Time: 39.95s
+  Cost for this iteration: 39.95s
+  Iteration 4 finished in 50.16s.
+
+--- Iteration 5/8 ---
+  Cumulative cost: 2621.92s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+C:\Users\user\.conda\envs\Lee_Seungwon\Lib\site-packages\botorch\optim\optimize.py:677: RuntimeWarning: Optimization failed in `gen_candidates_scipy` with the following warning(s):
+[OptimizationWarning('Optimization failed within `scipy.optimize.minimize` with status 2 and message ABNORMAL: .')]
+Trying again with a new set of initial conditions.
+  return _optimize_acqf_batch(opt_inputs=opt_inputs)
+  Suggested new candidates (acqf val max: 1.442e-01):
+tensor([[0.5703, 0.4185, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.6034, th/W=0.004766, fid=0.0, strain=15.0%...
+    Evaluation Result: 3.0684e+01. Time: 197.87s
+  Cost for this iteration: 197.87s
+  Iteration 5 finished in 209.50s.
+
+--- Iteration 6/8 ---
+  Cumulative cost: 2819.79s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 1.507e-01):
+tensor([[0.2721, 0.0183, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=2.6343, th/W=0.001165, fid=0.0, strain=15.0%...
+    Evaluation Result: 1.0053e+00. Time: 55.50s
+  Cost for this iteration: 55.50s
+  Iteration 6 finished in 62.43s.
+
+--- Iteration 7/8 ---
+  Cumulative cost: 2875.28s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 6.971e-02):
+tensor([[0.4057, 0.9427, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.0684, th/W=0.009484, fid=0.0, strain=15.0%...
+    Evaluation Result: 8.8272e+01. Time: 304.27s
+  Cost for this iteration: 304.27s
+  Iteration 7 finished in 311.81s.
+
+--- Iteration 8/8 ---
+  Cumulative cost: 3179.55s. Best HF obj (negated): -1.9987e-04
+  Fitting GP model...
+  Optimizing acquisition function...
+  Suggested new candidates (acqf val max: 3.963e-02):
+tensor([[0.6140, 1.0000, 0.0000]], device='cuda:0', dtype=torch.float64)
+  Evaluating run4: α=3.7456, th/W=0.010000, fid=0.0, strain=15.0%...
+  Warning: No valid positive real lambda values found after filtering.
+    Evaluation Failed. Time: 360.52s
+  Cost for this iteration: 360.52s
+  Iteration 8 finished in 366.17s.
+
+--- Final Recommendation ---
+  Refitting GP model with all accumulated data for final recommendation...
+  Final recommendation model successfully refitted.
+
+  Recommended unnormalized design parameters (from model):
+    alpha (L/W): 3.7885
+    th/W ratio: 0.010000
+
+  Evaluating recommended point at High Fidelity...
+  Evaluating run4: α=3.7885, th/W=0.010000, fid=1.0, strain=15.0%...
+Error message: Java exception occurred: 
+Exception:
+        com.comsol.util.exceptions.FlException: The following feature has encountered a problem:
+Messages:
+        The following feature has encountered a problem:
+        - Feature: Eigenvalue Solver 1.1 (sol2/e1)
+
+        Maximum number of iterations reached.
+
+        Eigenvalue solver interrupted.
+
+        Not all eigenvalues returned.
+
+Stack trace:
+at com.comsol.solver.SolverOperation.execute(SourceFile:398)
+        at com.comsol.solver.SolverOperation.addError(SourceFile:593)
+        at com.comsol.solver.SolverOperation.execute(SourceFile:410)
+        at com.comsol.model.method.SolverSequenceMethod.doRun(SourceFile:2395)
+        at com.comsol.model.method.SolverSequenceMethod.doRunAll(SourceFile:3165)
+        at com.comsol.model.dbmodel.SolverSequenceDb.runAll(SourceFile:312)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:132)
+        at com.comsol.model.method.StudyMethod.doRunNoGen(SourceFile:87)
+        at com.comsol.model.method.StudyMethod.doRun(SourceFile:74)
+        at com.comsol.model.dbmodel.StudyDb.run(SourceFile:133)
+        at jdk.internal.reflect.GeneratedMethodAccessor144.invoke(Unknown Source)
+        at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at com.comsol.bridge.command.b.a(SourceFile:161)
+        at com.comsol.bridge.command.b.run(SourceFile:103)
+        at com.comsol.bridge.command.k.c(SourceFile:223)
+        at com.comsol.bridge.command.k$1.run(SourceFile:99)
+        at com.comsol.util.thread.SuspendableTasks$1.run(SourceFile:111)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Stack trace:
+  File: C:\Users\user\Desktop\이승원 연참\run4.m, Name: run4, Line: 223
+    Evaluation Failed. Time: 677.64s
+  Objective (actual value) at recommended point: -1.0000e+10 (eval time: 677.64s)
+An error occurred in the main MFBO execution: index 2 is out of bounds for dimension 0 with size 1
+Traceback (most recent call last):
+  File "c:\Users\user\Desktop\이승원 연참\comsol_mfbo_final.py", line 462, in <module>
+    rec_fid_bo = recommended_x_full_norm[FIDELITY_INDEX].item()
+                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+IndexError: index 2 is out of bounds for dimension 0 with size 1
+Disconnecting MATLAB from COMSOL server...
+시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+  Error disconnecting MATLAB from COMSOL: 시그니처가 일치하는 생성자 'com.comsol.model.util.ModelUtil'을(를) 찾을 수 없습니다.
+
+Quitting MATLAB engine...
+MATLAB engine quit.
+Stopping COMSOL server (PID: 41188)...
+  COMSOL server stop timed out. Killing process...
+Cleanup complete.
+
+MFBO with COMSOL via MATLAB finished.
