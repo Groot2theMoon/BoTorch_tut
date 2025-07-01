@@ -35,19 +35,19 @@ class AbaqusWrinkleFunction:
 
     _abaqus_exe_path = r"C:\SIMULIA\Commands\abaqus.exe" # MODIFY: Your abaqus.exe path
     _python_script_name = "run_abaqus_analysis.py"      # The script ABAQUS will run
-    _script_folder = r"C:\Users\YourUser\abaqus_project" # MODIFY: Folder containing the script
-    _working_directory = r"C:\Users\YourUser\abaqus_project\wd" # MODIFY: ABAQUS working directory
+    _script_folder = r"C:\Users\user\Desktop\Seungwon" # MODIFY: Folder containing the script
+    _working_directory = r"C:\Users\user\Desktop\Seungwon\abaqus" # MODIFY: ABAQUS working directory
 
-    def __init__(self, negate_objective=True, 
-                 alpha_bounds=(1.5, 5.0), 
-                 th_w_ratio_bounds=(500, 2000)):
-        self.negate_objective = negate_objective # True for maximization (BoTorch default)
+    def __init__(self, negate=True, 
+                 alpha_bounds=(1.0, 5.0), 
+                 th_w_ratio_bounds=(1e-4, 1e-2),):
+        self.negate = negate
         self._bounds_design_vars_actual = [alpha_bounds, th_w_ratio_bounds]
         self.num_design_vars = len(self._bounds_design_vars_actual)
         self.dim = self.num_design_vars + 1
         self.fidelity_dim_idx = self.num_design_vars
         self.target_fidelity_bo = 1.0
-        self.nan_penalty = -1e10 if self.negate_objective else 1e10
+        self.nan_penalty = -1e10 if self.negate else 1e10
 
         if not os.path.exists(self._working_directory):
             os.makedirs(self._working_directory)
@@ -95,9 +95,7 @@ class AbaqusWrinkleFunction:
                     "--job_name", job_name,
                     "--work_dir", self._working_directory
                 ]
-                
                 process = subprocess.run(cmd, cwd=self._script_folder, capture_output=True, text=True, check=True, timeout=3600)
-                
 
                 with open(result_file_path, 'r') as f:
                     output_value = float(f.readline().strip())
@@ -119,11 +117,8 @@ class AbaqusWrinkleFunction:
         if nan_mask.any():
             objectives[nan_mask] = self.nan_penalty
         
-        # We want to MINIMIZE wrinkle amplitude, so we negate the HF values for BoTorch's maximizer
-        # LF (buckling load) can be used as is, assuming higher load is 'better' / correlated.
-        # This part might need tuning based on observed correlation. For now, only negate HF.
         hf_mask = (torch.abs(X_full_norm[:, self.fidelity_dim_idx] - self.target_fidelity_bo) < 1e-6)
-        if self.negate_objective:
+        if self.negate:
             objectives[hf_mask] = -objectives[hf_mask]
 
         return objectives, costs
@@ -133,7 +128,7 @@ ALPHA_BOUNDS_ACTUAL = (1.0, 5.0)
 TH_W_RATIO_BOUNDS_ACTUAL = (100.0, 10000.0)
 
 problem = AbaqusWrinkleFunction(
-    negate_objective=True,
+    negate=True,
     alpha_bounds=ALPHA_BOUNDS_ACTUAL,
     th_w_ratio_bounds=TH_W_RATIO_BOUNDS_ACTUAL
 )
@@ -147,8 +142,6 @@ TARGET_FIDELITY_VALUE = problem.target_fidelity_bo
 normalized_bounds = torch.tensor([[0.0] * DIM_TOTAL, [1.0] * DIM_TOTAL], **tkwargs)
 target_fidelities_map_for_project = {FIDELITY_INDEX: TARGET_FIDELITY_VALUE}
 
-
-
 def project_to_target_fidelity_func(X):
     return project_to_target_fidelity(X=X, target_fidelities=target_fidelities_map_for_project)
 
@@ -159,17 +152,14 @@ def generate_initial_data_with_LHS(n_lf, n_hf, problem_instance):
     sampler = LatinHypercube(d=problem_instance.num_design_vars, seed=int(time.time()))
     X_norm_lf = torch.from_numpy(sampler.random(n=n_lf)).to(**tkwargs)
     
-    # Create nested design for HF points
     indices = shuffle(np.arange(n_lf), random_state=int(time.time()))
     X_norm_hf = X_norm_lf[indices[:n_hf]]
     
-    # Create full tensors with fidelity levels
     x_lf = torch.cat([X_norm_lf, torch.full((n_lf, 1), BOTORCH_FIDELITIES_USED[0].item(), **tkwargs)], dim=1)
     x_hf = torch.cat([X_norm_hf, torch.full((n_hf, 1), BOTORCH_FIDELITIES_USED[1].item(), **tkwargs)], dim=1)
     
     x_init = torch.cat([x_lf, x_hf], dim=0)
     
-    # Evaluate points
     y_init, c_init = problem_instance(x_init)
     
     return x_init, y_init, c_init
@@ -259,7 +249,7 @@ if __name__ == "__main__":
         
         # Log actual objective value (not the negated one for BO)
         is_hf = abs(fid_bo - TARGET_FIDELITY_VALUE) < 1e-6
-        obj_act = -y_p if problem.negate_objective and is_hf else y_p
+        obj_act = -y_p if problem.negate and is_hf else y_p
         bo_results_log.append(["Initial", fid_bo, *des_norm, *des_act, y_p, obj_act, t_p])
         
     # --- Cost Model ---
@@ -315,7 +305,7 @@ if __name__ == "__main__":
         des_norm, fid_bo = x_p[:NUM_DESIGN_VARS].cpu().numpy(), x_p[FIDELITY_INDEX].item()
         des_act = problem._unnormalize_design_vars(x_p[:NUM_DESIGN_VARS]).cpu().numpy().flatten()
         is_hf = abs(fid_bo - TARGET_FIDELITY_VALUE) < 1e-6
-        obj_act = -y_p if problem.negate_objective and is_hf else y_p
+        obj_act = -y_p if problem.negate and is_hf else y_p
         bo_results_log.append([f"Iter_{iteration+1}", fid_bo, *des_norm, *des_act, y_p, obj_act, t_p])
         
         print(f"Iteration {iteration+1}: Selected fid={fid_bo:.1f}, α={des_act[0]:.3f}, Wo/to={des_act[1]:.1f}, Result(BO)={y_p:.4e}")
@@ -349,7 +339,7 @@ if __name__ == "__main__":
     des_norm, fid_bo = x_p[:NUM_DESIGN_VARS].cpu().numpy(), x_p[FIDELITY_INDEX].item()
     des_act = problem._unnormalize_design_vars(x_p[:NUM_DESIGN_VARS]).cpu().numpy().flatten()
     is_hf = abs(fid_bo - TARGET_FIDELITY_VALUE) < 1e-6
-    obj_act = -y_p if problem.negate_objective and is_hf else y_p
+    obj_act = -y_p if problem.negate and is_hf else y_p
     bo_results_log.append(["Recommendation", fid_bo, *des_norm, *des_act, y_p, obj_act, t_p])
     print(f"Recommended: α={des_act[0]:.3f}, Wo/to={des_act[1]:.1f}, Final Amplitude={obj_act:.4e}")
     
