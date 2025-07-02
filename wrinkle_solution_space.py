@@ -42,7 +42,8 @@ def visualize_grid(df, output_filename="grid.png"):
     ax.set_title('Grid Evaluation')
     ax.legend()
     
-    #ax.set_yscale('log')
+    if (df['th_w_ratio'].max() / df['th_w_ratio.min'].min())>100 :
+        ax.set_yscale('log')
 
     plt.savefig(output_filename)
     print(f"\nGrid completion status plot saved to {output_filename}")
@@ -56,7 +57,9 @@ if __name__ == "__main__":
     alpha_vals = np.linspace(ALPHA_BOUNDS[0], ALPHA_BOUNDS[1], GRID_RESOLUTION)
     th_w_ratio_vals = np.linspace(TH_W_RATIO_BOUNDS[0], TH_W_RATIO_BOUNDS[1], GRID_RESOLUTION)
     
-    results_list=[]
+    chunk_buffer = []
+    CHUNK_SIZE = 10
+    results_list = []
 
     write_header = not os.path.exists(OUTPUT_FILE)
     
@@ -90,17 +93,23 @@ if __name__ == "__main__":
                     "max_amplitude": max_amplitude_item,
                     "cost_s": cost_item
                 }
-                
-                df_entry = pd.DataFrame([result_entry])
 
-                df_entry.to_csv(f, header=write_header, index=False, lineterminator='\n')
-                f.flush()
-
-                write_header = False
+                chunk_buffer.append(result_entry)
                 results_list.append(result_entry)
 
                 evaluated_points += 1
                 print(f"  [{evaluated_points}/{total_points}] Evaluated: alpha={alpha:.4f}, th/w={th_w_ratio:.6f} -> amp={max_amplitude_item:.4e} | Status: {status}")
+                
+                if len(chunk_buffer) >= CHUNK_SIZE:
+                    df_chunk = pd.DataFrame(chunk_buffer)
+                    df_chunk.to_csv(f, header=write_header, index=False)
+                    chunk_buffer = []
+                    write_header = False
+                    f.flush()
+        
+        if chunk_buffer:
+            df_chunk = pd.DataFrame(chunk_buffer)
+            df_chunk.to_csv(f, header=write_header, index=False)
 
     final_df = pd.DataFrame(results_list)
     visualize_grid(final_df)
