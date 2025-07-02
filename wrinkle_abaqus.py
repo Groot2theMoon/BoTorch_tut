@@ -30,13 +30,12 @@ tkwargs = {
 }
 SMOKE_TEST = os.environ.get("SMOKE_TEST")
 
-
 class AbaqusWrinkleFunction:
 
-    _abaqus_exe_path = r"C:\SIMULIA\Commands\abaqus.exe" # MODIFY: Your abaqus.exe path
-    _python_script_name = "run_abaqus_analysis.py"      # The script ABAQUS will run
-    _script_folder = r"C:\Users\user\Desktop\Seungwon" # MODIFY: Folder containing the script
-    _working_directory = r"C:\Users\user\Desktop\Seungwon\abaqus" # MODIFY: ABAQUS working directory
+    _abaqus_exe_path = r"C:\SIMULIA\Commands\abaqus.exe" 
+    _python_script_name = "run_abaqus_analysis.py"      
+    _script_folder = r"C:\Users\user\Desktop\Seungwon" 
+    _working_directory = r"C:\Users\user\Desktop\Seungwon\abaqus" 
 
     def __init__(self, negate=True, 
                  alpha_bounds=(1.0, 5.0), 
@@ -179,7 +178,7 @@ def initialize_gp_model(x_train, y_train):
     return mll, model
 
 def plot_results(ground_truth_df, bo_log_df, output_path):
-    """Visualizes MFBO results on top of the ground truth solution space."""
+    
     alpha = ground_truth_df['alpha'].unique()
     th_w_ratio = ground_truth_df['th_w_ratio'].unique()
     # Note: reshape might need adjustment if grid is not perfectly rectangular
@@ -253,7 +252,6 @@ if __name__ == "__main__":
         bo_results_log.append(["Initial", fid_bo, *des_norm, *des_act, y_p, obj_act, t_p])
         
     # --- Cost Model ---
-    # Fallback costs in case initial data fails for one fidelity
     FALLBACK_COST_LF = 60.0
     FALLBACK_COST_HF = 600.0
     
@@ -265,7 +263,6 @@ if __name__ == "__main__":
     cost_model = AffineFidelityCostModel(fidelity_weights={FIDELITY_INDEX: cost_hf - cost_lf}, fixed_cost=cost_lf)
     cost_aware_utility = InverseCostWeightedUtility(cost_model=cost_model)
     
-    # --- MFBO Loop ---
     print(f"\n--- Starting MFBO Loop ({NUM_BO_ITERATIONS} iterations) ---")
     for iteration in range(NUM_BO_ITERATIONS):
         mll, model = initialize_gp_model(train_X, train_Y)
