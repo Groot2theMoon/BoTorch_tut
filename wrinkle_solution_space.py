@@ -62,7 +62,7 @@ def visualize_grid(success_points, failure_points, output_filename="grid.png"):
     ax.set_xlabel('alpha')
     ax.set_ylabel('Wo/to')
     ax.set_title('Grid Evaluation')
-    ax.legend()
+    #ax.legend()
     
     if (max(th_ws) / min(th_ws)) > 100:
         ax.set_yscale('log')
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
                 point_num = i * GRID_RESOLUTION + j + 1
                 print(f"    [{point_num}/{total_points}] alpha={alpha:.4f}, th/w={th_w_ratio:.6f}"
-                      f"amp={result['max_amplitude']:.4e} | {result['status']}")
+                      f" -> amp={result['max_amplitude']:.4e} | {result['status']}")
                 
                 if len(file_buffer) >= CHUNK_SIZE:
                     pd.DataFrame(file_buffer).to_csv(
